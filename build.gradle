@@ -1,0 +1,61 @@
+
+apply plugin: 'scala'
+
+repositories { mavenCentral() }
+
+ext {
+	versions = [
+		scala: '2.9.2',
+		scalatest: '2.0.M3'
+	]
+}
+
+sourceSets {
+    main {
+        scala { srcDirs = ['src/main/java', 'src/main/scala'] }
+    }
+    test {
+        scala { srcDirs = ['src/test/java', 'src/test/scala'] }
+    }
+}
+
+
+dependencies {
+	// Libraries needed to run the scala tools
+	//scalaTools "org.scala-lang:scala-compiler:$versions.scala"
+	//scalaTools "org.scala-lang:scala-library:$versions.scala"
+	
+    // Libraries needed for scala api
+	compile "org.scala-lang:scala-library:$versions.scala"
+	
+	testCompile "org.scalatest:scalatest_$versions.scala:$versions.scalatest"
+}
+
+/**
+ * For ScalaTest, Gradle can either use the JUnitRunner
+ * or the <scalatest> ant task.  Use this to define
+ * the ant task
+ */
+test {
+    ant.taskdef(name: 'scalatest',
+            classname: 'org.scalatest.tools.ScalaTestAntTask',
+            classpath: classpath.asPath)
+}
+
+/**
+ * Then use this to run the scalatest ant task.  Look to
+ * http://scalatest.org/user_guide/using_the_scalatest_ant_task
+ * for documentation
+ */
+test << {
+    ant.scalatest(runpath: sourceSets.test.output.asPath,
+            haltonfailure: 'true',
+            fork: 'false') {
+        reporter(type: 'stderr')
+    }
+}
+
+task runPython(type:Exec) {
+   workingDir 'src/main/python'
+   commandLine 'python', '2013_04.py'
+} 
