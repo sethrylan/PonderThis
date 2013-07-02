@@ -6,7 +6,9 @@ repositories { mavenCentral() }
 ext {
 	versions = [
 		scala: '2.9.2',
-		scalatest: '2.0.M3'
+		scalatest: '2.0.M3',
+        scalacheck: '1.10.1'
+
 	]
 }
 
@@ -21,14 +23,15 @@ sourceSets {
 
 
 dependencies {
-	// Libraries needed to run the scala tools
+	// Libraries needed to run the scala tools - no longer needed in gradle build
 	//scalaTools "org.scala-lang:scala-compiler:$versions.scala"
 	//scalaTools "org.scala-lang:scala-library:$versions.scala"
-	
+
     // Libraries needed for scala api
 	compile "org.scala-lang:scala-library:$versions.scala"
 	
 	testCompile "org.scalatest:scalatest_$versions.scala:$versions.scalatest"
+    testCompile "org.scalacheck:scalacheck_$versions.scala:$versions.scalacheck"
 }
 
 /**
@@ -58,4 +61,9 @@ test << {
 task runPython(type:Exec) {
    workingDir 'src/main/python'
    commandLine 'python', '2013_04.py'
-} 
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "1.6"
+}
+

@@ -1,43 +1,36 @@
 package ponderthis
 
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.path.FunSpec
-import org.scalatest.prop.TableDrivenPropertyChecks
+import org.scalatest.matchers.{MustMatchers, ShouldMatchers}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.{Ignore, WordSpec, FunSpec}
+import ponderthis.July2013.product
+import ponderthis.July2013.roll
+import org.scalatest.prop.Tables.Table
 
-/*
-http://alvinalexander.com/scala/how-create-scala-list-range-fill-tabulate-constructors
-http://www.scalatest.org/getting_started_with_fun_spec
-http://rosettacode.org/wiki/Combinations_with_repetitions#Scala
-http://docs.scala-lang.org/style/declarations.html
-http://docs.scala-lang.org/overviews/core/futures.html
-http://mkaz.com/solog/scala/10-scala-one-liners-to-impress-your-friends.html
-http://domino.research.ibm.com/Comm/wwwr_ponder.nsf/Challenges/July2013.html
-*/
 
-class July2013Spec extends FunSpec with ShouldMatchers with TableDrivenPropertyChecks {
+class July2013Spec extends WordSpec with ShouldMatchers with GeneratorDrivenPropertyChecks {
 
-//
-//  describe("Three identical octahedrons with values " + sides.toString()) {
-//    it("should have 120 possible values") {
-//      assert(Dice.roll(sides, 3).size == 120)
-//    }
-//  }
-
-  describe("Three dice") {
-    val diceValues =
-      Table (
-        ("sides", "numDice", "numValues"),
-        (List( 1, 4, 16, 64, 256, 1024, 4096, 16384), 3, 120)
-      )
-
-    forAll(diceValues) { (sides: List[Int], numDice: Int, numValues: Int) =>
-      it("with sides of " + sides.toString + " should have " + numValues + " possible sum values") {
-        Dice.roll(sides, numDice).size should be (numValues)
+  "Product" should {
+    "produce a sequence with a size equal to the product of all arguments" ignore {
+      forAll {
+        (lists: List[List[Int]]) =>
+          whenever((1 to 10000000).contains(lists.foldLeft(1)(_*_.size)) ) {
+            (lists.foldLeft(1)(_*_.size)) should be (product(lists).size)
+          }
       }
     }
-
   }
 
+  "The product of a set" should {
+    "be the product of its elements" in {
+      Set(1,2,3).product should be (6)
+    }
+  }
+
+  "The product of two set sizes" should {
+    "be the product their sizes" in {
+      Set(Set(1,2,3), Set(4,5,6)).foldLeft(1)(_*_.size) should be (9)
+    }
+  }
 
 }

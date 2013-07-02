@@ -11,8 +11,35 @@
 
 package ponderthis
 
-object Dice {
-  def roll(sides: List[Int], numDice: Int) = {
-    List.fill(120)(0)
+object July2013 {
+
+  /**
+   * Returns all possible unique values of a roll of dice
+   * @param sides   List of integers values for dice sides
+   * @param numDice Number of independent dice to roll
+   * @return        List of unique integer values from a single roll of the dice
+   */
+  def roll(sides: Iterable[Int], numDice: Int): Set[Int] =  {
+    product(Iterable.fill(numDice)(sides)).map(_.sum) toSet
+  }
+
+  /**
+   * see http://stackoverflow.com/questions/8321906/lazy-cartesian-product-of-several-seqs-in-scala
+   * @param xs
+   * @tparam A
+   * @return
+   */
+  def product[A](xs: Traversable[Traversable[A]]): Seq[Seq[A]] =
+    xs.foldLeft(Seq(Seq.empty[A])){
+      (x, y) => for (a <- x.view; b <- y) yield a :+ b }
+
+//  def product[T](xss: List[List[T]]): List[List[T]] = xss match {
+//    case Nil => List(Nil)
+//      case h :: t => for(xh <- h; xt <- product(t)) yield xh :: xt
+//  }
+
+
+  def maximin() {
+
   }
 }
