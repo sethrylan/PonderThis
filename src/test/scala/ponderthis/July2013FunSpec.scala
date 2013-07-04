@@ -1,11 +1,11 @@
 package ponderthis
 
 import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.path.FunSpec
 import org.scalatest.prop.TableDrivenPropertyChecks
 import ponderthis.July2013.roll
 import ponderthis.July2013.product
-
+import org.scalatest.path.FunSpec
+import org.scalatest.prop.Tables.Table
 
 
 /*
@@ -22,42 +22,63 @@ http://www.scalatest.org/user_guide/matchers_quick_reference
 
 class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenPropertyChecks {
 
+  def print(i : Traversable[TraversableOnce[Any]]): String =  print(i.map(print(_)))
+  def print(i : TraversableOnce[Any]): String = i.mkString("[", ",", "]")
+  val L = List
+
   describe("Product") {
     val productValues =   Table (
-      ("lists", "result"),
-      // a flat list
-      (List(List( 1, 4, 16, 64, 256, 1024, 4096, 16384)), List( 1, 4, 16, 64, 256, 1024, 4096, 16384).map(List(_))),
+      ("input", "output"),
+      // 0
+      (L(L.empty), L.empty),
+      // 0x0
+      (L(L.empty, L.empty), L.empty),
+      // 1x0, 0x1
+      (L(L(1), L.empty), L.empty),
+      (L(L.empty, L(1)), L.empty),
+      // 1x1
+      (L(L(1)), L(L(1))),
+      // 8x1
+      (L(L( 1, 4, 16, 64, 256, 1024, 4096, 16384)), L( 1, 4, 16, 64, 256, 1024, 4096, 16384).map(L(_))),
       // 2x2
-      (List(List(1,2), List(3,4)), List(List(1,3), List(1,4), List(2,3), List(2,4))),
+      (L(L(1,2), L(3,4)), L(L(1,3), L(1,4), L(2,3), L(2,4))),
       // 3x2
-      (List(List("a","b","c"), List(1,2)),
-        (List(List("a", 1), List("a", 2),
-              List("b", 1), List("b", 2),
-              List("c", 1), List("c", 2)))),
+      (L(L("a","b","c"), L(1,2)),
+        L(L("a", 1), L("a", 2),
+          L("b", 1), L("b", 2),
+          L("c", 1), L("c", 2))),
       // 3x2x2
-      (List(List("a","b","c"), List(1,2), List("S","T")),
-        (List(List("a", 1, "S"), List("a", 1, "T"), List("a", 2, "S"), List("a", 2, "T"),
-              List("b", 1, "S"), List("b", 1, "T"), List("b", 2, "S"), List("b", 2, "T"),
-              List("c", 1, "S"), List("c", 1, "T"), List("c", 2, "S"), List("c", 2, "T"))))
+      (L(L("a","b","c"), L(1,2), L("S","T")),
+        L(L("a", 1, "S"), L("a", 1, "T"), L("a", 2, "S"), L("a", 2, "T"),
+          L("b", 1, "S"), L("b", 1, "T"), L("b", 2, "S"), L("b", 2, "T"),
+          L("c", 1, "S"), L("c", 1, "T"), L("c", 2, "S"), L("c", 2, "T")))
     )
 
-    forAll(productValues) { (lists: List[List[Any]], result: List[List[Any]]) =>
-      it("with arguments of " + lists.mkString("[",",","]") + " should produce " + result.mkString("[",",","]")) {
-        product(lists).toList should be (result)
+    forAll(productValues) { (input: List[List[Any]], output: List[List[Any]]) =>
+      it("with arguments of " + print(input) + " should produce " + print(output)) {
+        product(input).toList should be (output)
       }
     }
   }
 
-  describe("N dice") {
-    val diceValues =
-      Table (
-        ("sides", "numDice", "numValues"),
-        (List( 1, 4, 16, 64, 256, 1024, 4096, 16384), 3, 120)
-      )
 
-    forAll(diceValues) { (sides: List[Int], numDice: Int, numValues: Int) =>
-      it("with N = " + numDice + " sides of " + sides.mkString("[",",","]") + " should have " + numValues + " possible sum values") {
+  describe("N dice") {
+    val rollValues =   Table (
+      ("sides", "numDice", "numValues", "maxValue"),
+      (L(1), 1, 1, 1),
+      (L(1), 3, 1, 3),
+      (L(1,1), 1, 1, 1),
+      (L(1,2), 1, 2, 2),
+      (L(1,2), 2, 3, 4),
+      (L(1, 4, 16, 64, 256, 1024, 4096, 16384), 3, 120, 16384)
+    )
+
+    forAll(rollValues) { (sides: List[Int], numDice: Int, numValues: Int, maxValue:Int) =>
+      it("with N=" + numDice + " and sides of " + print(sides) + " should have " + numValues + " possible roll values") {
         roll(sides, numDice).size should be (numValues)
+      }
+      it("with N=" + numDice + " and sides of " + print(sides) + " should have a max value of " + maxValue) {
+        roll(sides, numDice).max should be (maxValue)
       }
     }
   }

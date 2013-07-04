@@ -30,7 +30,6 @@ dependencies {
     runtime  "org.scalaconsole:ScalaConsole:2.10-1.5.RC5"
     runtime  "org.scala-lang:scala-swing:$versions.scala"
 
-    // Libraries needed for scala api
     compile "org.scala-lang:scala-library:$versions.scala"
 
     testCompile "org.scalatest:scalatest_$versions.scala:$versions.scalatest"
