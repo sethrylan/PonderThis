@@ -5,7 +5,6 @@ import org.scalatest.prop.TableDrivenPropertyChecks
 import ponderthis.July2013.roll
 import ponderthis.July2013.product
 import org.scalatest.path.FunSpec
-import org.scalatest.prop.Tables.Table
 
 
 /*

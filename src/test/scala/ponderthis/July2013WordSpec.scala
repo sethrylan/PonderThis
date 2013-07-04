@@ -8,7 +8,7 @@ import ponderthis.July2013.roll
 import org.scalatest.prop.Tables.Table
 
 
-class July2013Spec extends WordSpec with ShouldMatchers with GeneratorDrivenPropertyChecks {
+class July2013WordSpec extends WordSpec with ShouldMatchers with GeneratorDrivenPropertyChecks {
 
   "Product" should {
     "produce a sequence with a size equal to the product of all arguments" ignore {
