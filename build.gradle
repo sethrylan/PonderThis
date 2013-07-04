@@ -7,12 +7,11 @@ repositories {
 }
 
 ext {
-	versions = [
-		scala: '2.9.2',
-		scalatest: '2.0.M3',
-        scalacheck: '1.10.1'
-
-	]
+    versions = [
+        scala: '2.10.0',
+        scalatest: '2.0.M5',
+        scalacheck: '1.10.0'
+    ]
 }
 
 //sourceSets {
@@ -27,20 +26,14 @@ ext {
 //}
 
 dependencies {
-	// Libraries needed to run the scala tools - no longer needed in gradle build
-	//scalaTools "org.scala-lang:scala-library:$versions.scala"
-
-    // required to fix :
-    //    :scalaConsole
-    //    Error: Could not find or load main class scala.tools.nsc.MainGenericRunner
     runtime "org.scala-lang:scala-compiler:$versions.scala"
-    runtime  "org.scalaconsole:ScalaConsole:2.9.2-1.5.RC4Special"
+    runtime  "org.scalaconsole:ScalaConsole:2.10-1.5.RC5"
     runtime  "org.scala-lang:scala-swing:$versions.scala"
 
     // Libraries needed for scala api
-	compile "org.scala-lang:scala-library:$versions.scala"
-	
-	testCompile "org.scalatest:scalatest_$versions.scala:$versions.scalatest"
+    compile "org.scala-lang:scala-library:$versions.scala"
+
+    testCompile "org.scalatest:scalatest_$versions.scala:$versions.scalatest"
     testCompile "org.scalacheck:scalacheck_$versions.scala:$versions.scalacheck"
 }
 

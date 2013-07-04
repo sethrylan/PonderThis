@@ -42,13 +42,13 @@ class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenProper
     )
 
     forAll(productValues) { (lists: List[List[Any]], result: List[List[Any]]) =>
-      it("with arguments of " + lists + " should produce " + result) {
+      it("with arguments of " + lists.mkString("[",",","]") + " should produce " + result.mkString("[",",","]")) {
         product(lists).toList should be (result)
       }
     }
   }
 
-  describe("Three dice") {
+  describe("N dice") {
     val diceValues =
       Table (
         ("sides", "numDice", "numValues"),
@@ -56,7 +56,7 @@ class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenProper
       )
 
     forAll(diceValues) { (sides: List[Int], numDice: Int, numValues: Int) =>
-      it("with sides of " + sides + " should have " + numValues + " possible sum values") {
+      it("with N = " + numDice + " sides of " + sides.mkString("[",",","]") + " should have " + numValues + " possible sum values") {
         roll(sides, numDice).size should be (numValues)
       }
     }
