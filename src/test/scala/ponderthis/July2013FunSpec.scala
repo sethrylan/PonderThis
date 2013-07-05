@@ -54,7 +54,7 @@ class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenProper
     )
 
     forAll(productValues) { (input: List[List[Any]], output: List[List[Any]]) =>
-      it("with arguments of " + print(input) + " should produce " + print(output)) {
+      it("should produce " + print(output) + " with arguments of " + print(input)) {
         product(input).toList should be (output)
       }
     }
@@ -66,17 +66,20 @@ class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenProper
       ("sides", "numDice", "numValues", "maxValue"),
       (L(1), 1, 1, 1),
       (L(1), 3, 1, 3),
-      (L(1,1), 1, 1, 1),
-      (L(1,2), 1, 2, 2),
-      (L(1,2), 2, 3, 4),
-      (L(1, 4, 16, 64, 256, 1024, 4096, 16384), 3, 120, 16384)
+      (L(1, 1), 1, 1, 1),
+      (L(1, 2), 1, 2, 2),
+      (L(1, 2), 2, 3, 4),
+      (L(1, 4), 3, 4, 12),
+      (L(1, 4, 16), 3, 10, 48),
+      (L(1, 4, 16, 64), 3, 20, 192),
+      (L(1, 4, 16, 64, 256, 1024, 4096, 16384), 3, 120, 16384*3)
     )
 
     forAll(rollValues) { (sides: List[Int], numDice: Int, numValues: Int, maxValue:Int) =>
-      it("with N=" + numDice + " and sides of " + print(sides) + " should have " + numValues + " possible roll values") {
+      it("should have " + numValues + " possible roll values when N=" + numDice + " and sides=" + print(sides) ) {
         roll(sides, numDice).size should be (numValues)
       }
-      it("with N=" + numDice + " and sides of " + print(sides) + " should have a max value of " + maxValue) {
+      it("should have a maxValue of " + maxValue + " when N=" + numDice + " and sides=" + print(sides) ) {
         roll(sides, numDice).max should be (maxValue)
       }
     }

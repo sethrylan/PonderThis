@@ -1,4 +1,7 @@
 /**
+ *
+ * http://domino.research.ibm.com/Comm/wwwr_ponder.nsf/Challenges/July2013.html
+ *
  * Ponder This Challenge:
  * When you roll three octahedron (eight sided) dice with the sides numbered
  * 1, 4, 16, 64, 256, 1024, 4096, 16384, there are 120 different sums which
@@ -37,9 +40,4 @@ object July2013 {
 //    case Nil => List(Nil)
 //      case h :: t => for(xh <- h; xt <- product(t)) yield xh :: xt
 //  }
-
-
-  def maximin() {
-
-  }
 }

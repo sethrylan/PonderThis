@@ -8,6 +8,9 @@ import ponderthis.July2013.roll
 import org.scalatest.prop.Tables.Table
 
 
+/**
+ * see http://doc.scalatest.org/1.0/org/scalatest/WordSpec.html
+ */
 class July2013WordSpec extends WordSpec with ShouldMatchers with GeneratorDrivenPropertyChecks {
 
   "Product" should {
@@ -32,5 +35,15 @@ class July2013WordSpec extends WordSpec with ShouldMatchers with GeneratorDriven
       Set(Set(1,2,3), Set(4,5,6)).foldLeft(1)(_*_.size) should be (9)
     }
   }
+
+  "Three octahedral dice" when {
+    "given sides of 8 positive integers and a total of 120 sum values " should {
+      "have a minimized maximum face value" in {
+
+      }
+    }
+  }
+
+
 
 }
