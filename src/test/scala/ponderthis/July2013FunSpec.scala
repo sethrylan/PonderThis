@@ -69,6 +69,7 @@ class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenProper
       (L(1, 4), 3, 4, 12),
       (L(1, 4, 16), 3, 10, 48),
       (L(1, 4, 16, 64), 3, 20, 192),
+      (L(1, 3, 9, 27, 81, 243, 729, 2187), 3, 120, 6561),
       (L(1, 4, 16, 64, 256, 1024, 4096, 16384), 3, 120, 16384*3)
     )
 

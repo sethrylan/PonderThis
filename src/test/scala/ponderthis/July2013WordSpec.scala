@@ -43,12 +43,24 @@ class July2013WordSpec extends WordSpec with ShouldMatchers with GeneratorDriven
     }
   }
 
+  def sidesWord = afterWord("the ")
+
+  "Three octahedral dice with sides a list of powers 0..7 applied to integers in 3..31" should {
+    "have a total of 120 possible sums " when  {
+      (3 to 31).foreach { i =>
+        roll((0 to 7).toList.map(scala.math.pow(i,_).toInt),3).size should be (120)
+      }
+    }
+  }
+
   "Three octahedral dice" when {
     "given sides of 8 positive integers and a total of 120 sum values " should {
       "have a minimized maximum face value" in {
 //        Unfortunately, this type of code requires more time than the known universe
 //        dices.map(_.max).min
 //        Console.err.println(print((0 to 16387).combinations(8).find(roll(_,3).size == 120)))
+//        Console.err.println(nChoose((0 to 30).toList, 8).takeWhile(roll(_,3).size == 120))
+
       }
     }
   }

@@ -42,4 +42,14 @@ object July2013 {
 //    case Nil => List(Nil)
 //      case h :: t => for(xh <- h; xt <- product(t)) yield xh :: xt
 //  }
+
+  /**
+   * Combinations with repetition
+   * @param as   list of
+   * @param k    take k
+   * @return     Choose k from as with repetition
+   */
+  def nChoose[A](as: List[A], k: Int): List[List[A]] =
+    (List.fill(k)(as)).flatten.combinations(k).toList
+
 }
