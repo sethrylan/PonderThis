@@ -2,10 +2,9 @@ package ponderthis
 
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.prop.TableDrivenPropertyChecks
-import ponderthis.July2013.roll
-import ponderthis.July2013.product
+import ponderthis.July2013._
 import org.scalatest.path.FunSpec
-
+import ponderthis.Utils._
 
 /*
 http://alvinalexander.com/scala/how-create-scala-list-range-fill-tabulate-constructors
@@ -21,8 +20,6 @@ http://www.scalatest.org/user_guide/matchers_quick_reference
 
 class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenPropertyChecks {
 
-  def print(i : Traversable[TraversableOnce[Any]]): String =  print(i.map(print(_)))
-  def print(i : TraversableOnce[Any]): String = i.mkString("[", ",", "]")
   val L = List
 
   describe("Product") {
