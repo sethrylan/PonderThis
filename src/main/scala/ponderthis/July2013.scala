@@ -37,11 +37,10 @@ object July2013 {
     product(Iterable.fill(numDice)(sides)).map(_.sum) toSet
   }
 
-
-//  def product[T](xss: List[List[T]]): List[List[T]] = xss match {
-//    case Nil => List(Nil)
-//      case h :: t => for(xh <- h; xt <- product(t)) yield xh :: xt
-//  }
+  def product2[T](xss: List[List[T]]): List[List[T]] = xss match {
+    case Nil => List(Nil)
+      case h :: t => for(xh <- h; xt <- product2(t)) yield xh :: xt
+  }
 
   /**
    * Combinations with repetition
