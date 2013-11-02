@@ -9,7 +9,7 @@ import ponderthis.Utils._
 /**
  * see http://doc.scalatest.org/1.0/org/scalatest/WordSpec.html
  */
-class July2013WordSpec extends WordSpec with ShouldMatchers with GeneratorDrivenPropertyChecks {
+@Ignore class July2013WordSpec extends WordSpec with ShouldMatchers with GeneratorDrivenPropertyChecks {
 
   "Product" should {
     "produce a set" in {

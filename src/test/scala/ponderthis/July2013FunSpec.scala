@@ -5,6 +5,7 @@ import org.scalatest.prop.TableDrivenPropertyChecks
 import ponderthis.July2013._
 import org.scalatest.path.FunSpec
 import ponderthis.Utils._
+import org.scalatest.Ignore
 
 /*
 http://alvinalexander.com/scala/how-create-scala-list-range-fill-tabulate-constructors
@@ -17,8 +18,7 @@ http://domino.research.ibm.com/Comm/wwwr_ponder.nsf/Challenges/July2013.html
 
 http://www.scalatest.org/user_guide/matchers_quick_reference
 */
-
-class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenPropertyChecks {
+@Ignore class July2013FunSpec extends FunSpec with ShouldMatchers with TableDrivenPropertyChecks {
 
   val L = List
 
