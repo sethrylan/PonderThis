@@ -9,7 +9,7 @@ class November2013WordSpec extends WordSpec with ShouldMatchers with GeneratorDr
 
 
   def sidesWord = afterWord("the ")
-  def maxDimensions = 30
+  def maxDimensions = 60
 
 
   "Three hypercubes" when {

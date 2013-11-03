@@ -14,13 +14,15 @@
 
 package ponderthis
 
+import scalaz.Memo
+
 object November2013 {
 
   /**
    * d = number of dimesions
    *
-   * faces       = 2^d - 2*d = 2 = 2*faces(d-1) + edges(d-1)
-   *
+   * faces       = 2**d - 2*d = 2 = 2*faces(d-1) + edges(d-1)
+
    * e(0,d) = vertices(d) = 2^d
    * e(1,d) = edges(d) = 2*edges(d-1) + vertices(d-1)
    * e(2,d) = faces(d) = 2*faces(d-1) + edges(d-1)    = 2^d - 2*d
@@ -28,10 +30,6 @@ object November2013 {
    *
    */
 
-
-//  val n-three:Stream[Int] = 0 #:: 1 #:: (fibs zip fibs.tail).map{ t => t._1 + t._2 }
-
-//  val fibs: Stream[Int] = 0 #:: fibs.scanLeft(1)(_ + _)
 
   /**
    * Return list of elements index by k-dimension for hypercube of d dimensions
@@ -47,13 +45,29 @@ object November2013 {
    * @param k  k-dimensional element (point, line, face, cell, 4-face, etc)
    * @return   number of k-dimensional elements in a d-dimensional hypercube
    */
-  def e(d:Int, k:Int): Int =
+  val e:(Int,Int) => Int = (d:Int, k:Int) =>
+    //  Must define function type for recursion
     if(k > d)
       0
     else if(k == 0)
       math.pow(2,d).toInt
     else
       2*e(d-1, k) + e(d-1, k-1)
+
+
+  //  val memoE:(Int,Int) => Int = Memo.mutableHashMapMemo { (t) =>
+//    def d = t._1
+//    def k = t._2
+//    if(k > d)
+//      0
+//    else if(k == 0)
+//      math.pow(2,d).toInt
+//    else
+//      2*e(d-1, k) + e(d-1, k-1)
+//  }
+
+
+
 
 
   def hypercubes(maxDimensions:Int) : Vector[Vector[Int]] =
